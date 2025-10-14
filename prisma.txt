@@ -1,0 +1,3 @@
+npm install prisma @prisma/client
+npx prisma init
+npx prisma generate
