@@ -12,7 +12,7 @@ const GetCorrectCiv = async (req, res) => {
   if (!user)
     return res.json({ status: "error", message: "Token is invalid" });
 
-  const correctCiv = await civilizationV2.findById(user.currentCiv);
+  const correctCiv = await civilizationV2.findById(user.current_civ);
   if (!correctCiv)
     return res.json({ status: "error", message: "User has no current civ" });
 
@@ -28,7 +28,7 @@ const GetCorrectUnit = async (req, res) => {
   if (!user)
     return res.json({ status: "error", message: "Token is invalid" });
 
-  const correctoUnit = await civilizationV2.findById(user.currentUnit);
+  const correctoUnit = await civilizationV2.findById(user.current_unit);
   if (!correctoUnit)
     return res.json({ status: "error", message: "User has no current unit" });
 
@@ -72,7 +72,7 @@ const GuessCiv = async (req, res) => {
     if (!user)
       return res.json({ status: "error", message: "Token is invalid" });
 
-    const correctCiv = await civilizationV2.findById(user.currentCiv);
+    const correctCiv = await civilizationV2.findById(user.current_civ);
     if (!correctCiv)
       return res.json({ status: "error", message: "User has no current civ" });
 
@@ -89,28 +89,27 @@ const GuessCiv = async (req, res) => {
       guessedCiv: guessCiv.name,
       type: guessCiv.type,
       dlc: guessCiv.dlc,
-      hasFullBlacksmith: guessCiv.hasFullBlacksmith,
-      UUType: guessCiv.UUType,
-      hasRendemption: guessCiv.hasRendemption,
-      architectureSet: guessCiv.architectureSet,
-      hasCannonGalleon: guessCiv.hasCannonGalleon
+      hasFullBlacksmith: guessCiv.has_full_blacksmith,
+      UUType: guessCiv.uu_type,
+      hasRendemption: guessCiv.has_rendemption,
+      architectureSet: guessCiv.architecture_set,
+      hasCannonGalleon: guessCiv.has_cannon_galleon
     };
 
     const similarites = {
       sameDlc: guessCiv.dlc === correctCiv.dlc,
-      sameHasFullBlacksmith: guessCiv.hasFullBlacksmith === correctCiv.hasFullBlacksmith,
-      sameEconomicBonus: guessCiv.economicBonus === correctCiv.economicBonus,
+      sameHasFullBlacksmith: guessCiv.has_full_blacksmith === correctCiv.has_full_blacksmith,
       sameUUType: GetPartialSimilarites(
-        guessCiv.UUType,
-        correctCiv.UUType
+        guessCiv.uu_type,
+        correctCiv.uu_type
       ),
       sameType: GetPartialSimilarites(
         guessCiv.type,
         correctCiv.type
       ),
-      sameHasRendemption: guessCiv.hasRendemption === correctCiv.hasRendemption,
-      sameArchitectureSet: guessCiv.architectureSet === correctCiv.architectureSet,
-      sameHasCannonGalleon: guessCiv.hasCannonGalleon === correctCiv.hasCannonGalleon
+      sameHasRendemption: guessCiv.has_rendemption === correctCiv.has_rendemption,
+      sameArchitectureSet: guessCiv.architecture_set === correctCiv.architecture_set,
+      sameHasCannonGalleon: guessCiv.has_cannon_galleon === correctCiv.has_cannon_galleon
     };
     if (guess !== correctCiv.name) {
       return res.json({
@@ -135,7 +134,7 @@ const GuessCiv = async (req, res) => {
 
     // Pick a new civ not yet solved
     const unsolvedIds = allCivIds.filter(
-      (id) => !solvedCivs.includes(id)
+      (id) => !solvedRows.includes(id)
     );
 
     const newCivId = unsolvedIds[Math.floor(Math.random() * unsolvedIds.length)];
@@ -147,7 +146,7 @@ const GuessCiv = async (req, res) => {
 
     // Update user
     await userV2.updateById(user.id, {
-      currentCiv: newCivId,
+      current_civ: newCivId,
     });
 
     res.json({
@@ -172,7 +171,7 @@ const GetUnit = async (req, res) => {
       return res.json({ status: "error", message: "Token is invalid" });
     }
 
-    if (!userObj.currentUnit) {
+    if (!userObj.current_unit) {
       return res.json({
         status: "error",
         message: "No current unit set for this user",
@@ -180,7 +179,7 @@ const GetUnit = async (req, res) => {
     }
 
     // Fetch the unit from the database
-    const currentUnitId = userObj.currentUnit;
+    const currentUnitId = userObj.current_unit;
     
     const unitData = await civilizationV2.findById(currentUnitId);
     if (!unitData) {
@@ -215,7 +214,7 @@ const GuessUnit = async (req, res) => {
     if (!user)
       return res.json({ status: "error", message: "Token is invalid" });
 
-    const correctUnit = await civilizationV2.findById(user.currentUnit);
+    const correctUnit = await civilizationV2.findById(user.current_unit);
     
     if (!correctUnit)
       return res.json({ status: "error", message: "No current unit set for this user" });
@@ -264,7 +263,7 @@ const GuessUnit = async (req, res) => {
     }
     // Update user
     await userV2.updateById(user.id, {
-      currentUnit: newCivId,
+      current_unit: newCivId,
     });
     
     res.json({

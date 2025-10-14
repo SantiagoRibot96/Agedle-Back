@@ -23,48 +23,48 @@ const user = {
     return prisma.users.update({ where: { token }, data });
   },
 
-  async addSolvedCiv(userId, civId) {
-    return prisma.usersolvedcivs.create({
-      data: { userId, civId },
+  async addSolvedCiv(user_id, civ_id) {
+    return prisma.user_solved_civs.create({
+      data: { user_id, civ_id },
     });
   },
 
   async addSolvedCivs(data) {
-    return prisma.usersolvedcivs.createMany({
+    return prisma.user_solved_civs.createMany({
       data,
       skipDuplicates: true,
     });
   },
 
-  async getSolvedCivIds(userId) {
-    const solved = await prisma.usersolvedcivs.findMany({
-      where: { userId },
-      select: { civId: true },
+  async getSolvedCivIds(user_id) {
+    const solved = await prisma.user_solved_civs.findMany({
+      where: { user_id },
+      select: { civ_id: true },
     });
-    return solved.map((row) => row.civId);
+    return solved.map((row) => row.civ_id);
   },
 
-  async clearSolvedCivs(userId) {
-    return prisma.usersolvedcivs.deleteMany({ where: { userId } });
+  async clearSolvedCivs(user_id) {
+    return prisma.user_solved_civs.deleteMany({ where: { user_id } });
   },
 
   async findAll() {
     return prisma.users.findMany();
   },
-  async getSolvedUnitIds(userId) {
-    const solved = await prisma.usersolvedunits.findMany({
-      where: { userId },
-      select: { civId: true },
+  async getSolvedUnitIds(user_id) {
+    const solved = await prisma.user_solved_units.findMany({
+      where: { user_id },
+      select: { civ_id: true },
     });
-    return solved.map((row) => row.civId);
+    return solved.map((row) => row.civ_id);
   },
-  async addSolvedUnit(userId, civId) {
-    return prisma.usersolvedunits.create({
-      data: { userId, civId },
+  async addSolvedUnit(user_id, civ_id) {
+    return prisma.user_solved_units.create({
+      data: { user_id, civ_id },
     });
   },
-  async clearSolvedUnits(userId) {
-    return prisma.usersolvedunits.deleteMany({ where: { userId } });
+  async clearSolvedUnits(user_id) {
+    return prisma.user_solved_units.deleteMany({ where: { user_id } });
   }
 };
 

@@ -3,8 +3,8 @@ const db = require("../Configs/db");
 const user = {
   update: (data, cb) => {
     return db.query(
-      "UPDATE users SET currentCiv = ? WHERE token = ?",
-      [data.currentCiv, data.prestige, data.score, data.token],
+      "UPDATE users SET current_civ = ? WHERE token = ?",
+      [data.current_civ, data.token],
       cb
     );
   },

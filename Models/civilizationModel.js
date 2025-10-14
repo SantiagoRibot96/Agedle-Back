@@ -12,7 +12,7 @@ const civilization = {
   },
   getByToken: (token, cb) => {
     db.query(
-      "SELECT users.currentCiv, civs.id, civs.name, civs.type, civs.dlc, civs.hasFullBalcksmith, civs.UUType, civs.hasRendemption, civs.architectureSet, civs.hasCannonGalleon FROM users JOIN civs ON civs.id = users.currentCiv WHERE users.token = ?",
+      "SELECT users.current_civ, civs.id, civs.name, civs.type, civs.dlc, civs.has_full_blacksmith, civs.uu_type, civs.has_rendemption, civs.architecture_set, civs.has_cannon_galleon FROM users JOIN civs ON civs.id = users.current_civ WHERE users.token = ?",
       [token],
       cb
     );

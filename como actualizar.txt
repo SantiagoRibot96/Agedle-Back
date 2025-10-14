@@ -1,0 +1,14 @@
+# 1. Entrás al servidor
+ssh -i "D:/Descargas/nombrecualquiera.ppk" bitnami@18.232.128.55
+
+# 2. Vas a la carpeta del backend
+cd /opt/bitnami/app/backend
+
+# 3. Bajás los cambios de GitHub
+git pull origin main     # (o master)
+
+# 4. Si agregaste dependencias nuevas
+npm install
+
+# 5. Reiniciás la app con PM2
+pm2 restart agedle-back

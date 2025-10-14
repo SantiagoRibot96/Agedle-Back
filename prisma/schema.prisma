@@ -15,49 +15,49 @@ datasource db {
 }
 
 model civs {
-  id                 Int                  @id @unique(map: "id_UNIQUE") @default(autoincrement())
-  name               String?              @unique(map: "name_UNIQUE") @db.VarChar(45)
-  type               String?              @db.VarChar(255)
-  dlc                String?              @db.VarChar(255)
-  hasFullBlacksmith  String?              @db.VarChar(5)
-  UUType             String?              @db.VarChar(255)
-  hasRendemption     String?              @db.VarChar(5)
-  architectureSet    String?              @db.VarChar(255)
-  hasCannonGalleon   String?              @db.VarChar(5)
-  usersolvedcivs     usersolvedcivs[]
-  usersolvedunits    usersolvedunits[]
+  id                    Int                  @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  name                  String?              @unique(map: "name_UNIQUE") @db.VarChar(45)
+  type                  String?              @db.VarChar(255)
+  dlc                   String?              @db.VarChar(255)
+  has_full_blacksmith   String?              @db.VarChar(5)
+  uu_type               String?              @db.VarChar(255)
+  has_rendemption       String?              @db.VarChar(5)
+  architecture_set      String?              @db.VarChar(255)
+  has_cannon_galleon    String?              @db.VarChar(5)
+  user_solved_civs      user_solved_civs[]
+  user_solved_units     user_solved_units[]
 }
 
 model users {
-  id                  Int                  @id @unique(map: "id_UNIQUE") @default(autoincrement())
-  nickname            String               @default("Anonymous") @db.VarChar(30)
-  password            String               @default("12345") @db.VarChar(30)
-  token               String               @db.VarChar(64)
-  currentCiv          Int
-  currentUnit         Int
-  timestamp           String               @db.VarChar(10)
-  country             String?              @db.VarChar(5)
-  streak              Int
-  usersolvedcivs      usersolvedcivs[]
-  usersolvedunits     usersolvedunits[]
+  id                    Int                  @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  nickname              String               @default("Anonymous") @db.VarChar(30)
+  password              String               @default("12345") @db.VarChar(30)
+  token                 String               @db.VarChar(64)
+  current_civ           Int
+  current_unit          Int
+  timestamp             String               @db.VarChar(10)
+  country               String?              @db.VarChar(5)
+  streak                Int
+  user_solved_civs      user_solved_civs[]
+  user_solved_units     user_solved_units[]
 }
 
-model usersolvedcivs {
-  userId Int
-  civId  Int
-  civs   civs  @relation(fields: [civId], references: [id], onDelete: Cascade, map: "UserSolvedCivs_civId_fkey")
-  users  users @relation(fields: [userId], references: [id], onDelete: Cascade, map: "UserSolvedCivs_userId_fkey")
+model user_solved_civs {
+  user_id               Int
+  civ_id                Int
+  civs                  civs  @relation(fields: [civ_id], references: [id], onDelete: Cascade, map: "user_solved_civs_civ_id_fkey")
+  users                 users @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "user_solved_civs_user_Id_fkey")
 
-  @@id([userId, civId])
-  @@index([civId], map: "UserSolvedCivs_civId_fkey")
+  @@id([user_id, civ_id])
+  @@index([civ_id], map: "user_solved_civs_civ_id_fkey")
 }
 
-model usersolvedunits {
-  userId Int
-  civId  Int
-  civs   civs  @relation(fields: [civId], references: [id], onDelete: Cascade, map: "UserSolvedUnits_civId_fkey")
-  users  users @relation(fields: [userId], references: [id], onDelete: Cascade, map: "UserSolvedUnits_userId_fkey")
+model user_solved_units {
+  user_id               Int
+  civ_id                Int
+  civs                  civs  @relation(fields: [civ_id], references: [id], onDelete: Cascade, map: "user_solved_units_civ_id_fkey")
+  users                 users @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "user_solved_units_user_id_fkey")
 
-  @@id([userId, civId])
-  @@index([civId], map: "UserSolvedUnits_civId_fkey")
+  @@id([user_id, civ_id])
+  @@index([civ_id], map: "user_solved_units_civ_id_fkey")
 }

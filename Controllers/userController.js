@@ -35,8 +35,8 @@ const Create = async (req, res) => {
             nickname: "nickname",
             password: "1234",
             token: token,
-            currentCiv: currentCivilization.id,
-            currentUnit: randomUnit.id,
+            current_civ: currentCivilization.id,
+            current_unit: randomUnit.id,
             timestamp: new Date().toLocaleDateString("en"),
             country: country,
             streak: 0,
@@ -129,7 +129,7 @@ const ChangeCivGuess = async (req, res) => {
       await clearSolvedCivs(userObj.id);
     }
 
-    await userV2.updateById(userObj.id, { currentCiv: newCivId });
+    await userV2.updateById(userObj.id, { current_civ: newCivId });
 
     res.json({
       status: "success",
@@ -161,7 +161,7 @@ const ChanceUnitGuess = async (req, res) => {
       await clearSolvedUnits(userObj.id);
     }
 
-    await userV2.updateById(userObj.id, { currentUnit: newCivId });
+    await userV2.updateById(userObj.id, { current_unit: newCivId });
 
     res.json({
       status: "success",
