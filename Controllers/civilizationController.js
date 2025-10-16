@@ -137,7 +137,7 @@ const GuessCiv = async (req, res) => {
       (id) => !solvedRows.includes(id)
     );
 
-    const newCivId = unsolvedIds[Math.floor(Math.random() * unsolvedIds.length)];
+    let newCivId = unsolvedIds[Math.floor(Math.random() * unsolvedIds.length)];
 
     if(!newCivId){
       newCivId = allCivIds[Math.floor(Math.random() * allCivIds.length)]
@@ -254,7 +254,7 @@ const GuessUnit = async (req, res) => {
     const unsolvedIds = allCivIds.filter(
       (id) => !solvedRows.includes(id)
     );
-    const newCivId =
+    let newCivId =
       unsolvedIds[Math.floor(Math.random() * unsolvedIds.length)];
 
     if(!newCivId){

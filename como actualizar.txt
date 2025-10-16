@@ -12,3 +12,9 @@ npm install
 
 # 5. Reiniciás la app con PM2
 pm2 restart agedle-back
+
+
+
+mysql -u root -p
+
+sudo mysql -u root -p < /ruta/archivo.sql
