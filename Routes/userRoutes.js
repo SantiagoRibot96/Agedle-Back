@@ -9,7 +9,7 @@ router.get("/user", userController.CheckToken);
 router.post("/user", userController.Create);
 
 router.put("/user/civ", userController.ChangeCivGuess);
-router.put("/user/unit", userController.ChanceUnitGuess);
+router.put("/user/unit", userController.ChangeUnitGuess);
 
 router.delete("/user", userController.DeleteUser);
 

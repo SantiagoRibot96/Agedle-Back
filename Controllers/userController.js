@@ -122,11 +122,11 @@ const ChangeCivGuess = async (req, res) => {
     const civPool = allCivsIds.filter((id) => !solvedIds.includes(id));
 
     const random = Math.floor(Math.random() * civPool.length);
-    const newCivId = civPool[random];
+    let newCivId = civPool[random];
 
     if(!newCivId){
       newCivId = allCivsIds[Math.floor(Math.random() * allCivsIds.length)];
-      await clearSolvedCivs(userObj.id);
+      await userV2.clearSolvedCivs(userObj.id);
     }
 
     await userV2.updateById(userObj.id, { current_civ: newCivId });
@@ -141,7 +141,7 @@ const ChangeCivGuess = async (req, res) => {
   }
 };
 
-const ChanceUnitGuess = async (req, res) => {
+const ChangeUnitGuess = async (req, res) => {
   try {
     const token = req.token;
     const userObj = await userV2.findByToken(token);
@@ -154,11 +154,11 @@ const ChanceUnitGuess = async (req, res) => {
     const civPool = allCivsIds.filter((id) => !solvedIds.includes(id));
 
     const random = Math.floor(Math.random() * civPool.length);
-    const newCivId = civPool[random];
+    let newCivId = civPool[random];
 
     if(!newCivId){
       newCivId = allCivsIds[Math.floor(Math.random() * allCivsIds.length)];
-      await clearSolvedUnits(userObj.id);
+      await userV2.clearSolvedUnits(userObj.id);
     }
 
     await userV2.updateById(userObj.id, { current_unit: newCivId });
@@ -178,5 +178,5 @@ module.exports = {
   CheckToken,
   DeleteUser,
   ChangeCivGuess,
-  ChanceUnitGuess
+  ChangeUnitGuess
 };

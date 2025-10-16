@@ -141,7 +141,7 @@ const GuessCiv = async (req, res) => {
 
     if(!newCivId){
       newCivId = allCivIds[Math.floor(Math.random() * allCivIds.length)]
-      await clearSolvedCivs(user.id);
+      await userV2.clearSolvedCivs(user.id);
     }
 
     // Update user
@@ -259,7 +259,7 @@ const GuessUnit = async (req, res) => {
 
     if(!newCivId){
       newCivId = allCivIds[Math.floor(Math.random() * allCivIds.length)]
-      await clearSolvedUnits(user.id);
+      await userV2.clearSolvedUnits(user.id);
     }
     // Update user
     await userV2.updateById(user.id, {
