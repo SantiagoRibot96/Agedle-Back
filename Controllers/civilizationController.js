@@ -124,7 +124,7 @@ const GuessCiv = async (req, res) => {
     const allCivIds = await civilizationV2.findAllIds();
 
     // Get solved civ IDs for this user
-    const solvedRows = await userV2.getSolvedCivIds(user.id);
+    let solvedRows = await userV2.getSolvedCivIds(user.id);
 
     // Add the just-solved civ if not already present
     if (!solvedRows.includes(correctCiv.id)) {
@@ -242,7 +242,7 @@ const GuessUnit = async (req, res) => {
     const allCivIds = await civilizationV2.findAllIds();
 
     // Get solved civ IDs for this user
-    const solvedRows = await userV2.getSolvedUnitIds(user.id);
+    let solvedRows = await userV2.getSolvedUnitIds(user.id);
 
     // Add the just-solved civ if not already present
     if (!solvedRows.includes(correctUnit.id)) {
